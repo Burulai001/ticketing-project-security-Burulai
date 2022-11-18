@@ -17,6 +17,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
+        // after authentication , it is capturing roles
         Set<String> roles= AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("Admin")){
             response.sendRedirect("/user/create");
@@ -25,7 +26,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
             response.sendRedirect("/task/create");
         }
         if (roles.contains("Employee")){
-            response.sendRedirect("/task/employee");
+            response.sendRedirect("/task/employee/pending-tasks");
         }
     }
 }
